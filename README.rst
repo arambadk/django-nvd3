@@ -85,7 +85,7 @@ So to achieve this, we will edit our view.py, we will prepare the data that will
             'jquery_on_ready': False,
         }
     }
-    return render_to_response('piechart.html', data)
+    return render(request, 'piechart.html', {'data':data})
 
 
 We will render the template 'piechart.html' with a dictionary 'data' which contains 'charttype' and 'chartdata'.
@@ -103,11 +103,11 @@ Our template piechart.html could look like this::
     {% load nvd3_tags %}
     <head>
         {% include_chart_jscss %}
-        {% load_chart charttype chartdata chartcontainer extra %}
+        {% load_chart data.charttype data.chartdata data.chartcontainer data.extra %}
     </head>
     <body>
         <h1>Fruits vs Calories</h1>
-        {% include_container chartcontainer 400 600 %}
+        {% include_container data.chartcontainer 400 600 %}
     </body>
 
 We use include the Javascript and CSS code for D3/NVD3.
